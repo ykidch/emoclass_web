@@ -1,0 +1,30 @@
+AF = Asian Female 11 Rostros
+AM = Asian Male 9 Rostros
+BF = Black Female 12 Rostros
+BM = Black Male 8 Rostros
+HF = Hispanic Female 11 Rostros
+HM = Hispanic Male 9 Rostros
+OM = Other Male 1 Rostros
+WF = White Female 15 Rostros
+WM = White Male 13 Rostros
+
+Se seleccionaron 89 rostros de la base RADIATE
+
+Emociones
+AO = Angry Open
+CC = Calm Closed
+DC = Disgust Open 
+FO = Fear Open
+HO = Happy Open
+NC = Neutral Closed
+SC = Sad Closed
+SUR = Surprised
+
+Algunos actores no tenían todas sus expresiones emocionales, por lo que se colocaron otras para completar el set de 
+8 expresiones y se cambiaron sus nombres para fines de tener un csv de trials apropiado.
+
+HM04   SUR faltante, se remplazó por SO
+HM05   DO faltante, se remplazó por AC
+HM06   SC faltante, se remplazó por SO
+WF09   AO faltante, se remplazó por AC
+WM01   SUR faltante, se remplazó por SO

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="../jsPsych/jspsych.js">
+
+
+
+	</script>
+	<script src="../jsPsych/plugins/jspsych-image-button-response-emoclass.js"></script>
+	<script src="../jsPsych/plugins/jspsych-image-button-response-emoclass-collage.js"></script>
+	<script src="../jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
+	<script src="../jsPsych/plugins/jspsych-survey-html-form.js"></script>
+	<script src="../jsPsych/plugins/jspsych-fullscreen.js"></script>
+	<script src="end_form.js"></script>
+	<link href="../jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+	<style>
+	body, html {
+		height: 100%;
+		width: 100%;
+	}
+	</style>
+</head>
+<body>
+
+</body>
+<script>
+	//lista de personas
+	var actors = ["WF01", "HF01", "HM04", "WM02", "WF06", "WF11", "WM12", "HF04", "HF03", "HF09", "WM06", "BF05", "BF06", "BM16", "HM07", "HM01", "WF04", "WF03", "BM11", "HF10", "AF12", "AM05", "AF08", "WF07", "BM01", "WF02", "AF05", "AM08", "AF11", "AF02", "HM11", "HF07", "BF18", "BF20", "WF14", "WF13", "BF14", "BM18", "BF10", "BM02", "WF12", "WF08", "AM02", "AF01", "AM10"]; 	
+	var actors_total = 2;
+	//lista de emociones
+	var expressions = ["NC","SC","SUR","AO","CC","DO","FO","HO"];
+
+	var data_filter = [{trial_type:"image-button-response-emoclass"},{trial_type:"image-button-response-emoclass-collage"},{trial_type:"survey-html-form"}];
+
+
+	var timeline = [];
+
+	function shuffleArray(array) {
+	    for (var i = array.length - 1; i > 0; i--) {
+	        var j = Math.floor(Math.random() * (i + 1));
+	        var temp = array[i];
+	        array[i] = array[j];
+	        array[j] = temp;
+	    }
+	};	
+
+
+	var fullscreen_on = {
+		type: "fullscreen",
+		fullscreen_mode: true,
+		message: "<div style='width:75%;margin:auto'><span style='font-size=16px;text-align:justify'><p>Gracias por tu interés en este experimento. Para completarlo, necesitarás una <strong>buena conexión a internet</strong>.<br><br> Deberás realizar todo de corrido, de lo contrario tus respuestas no serán registradas. El tiempo estimado para completar esta tarea es de <strong>15-25 minutos</strong>. <br><br> <strong>Importante</strong>: la prueba puede que no funcione en <strong>Safari</strong> o en versiones antiguas de navegador. Si la prueba no funciona, por favor intenta descargar la última versión de <strong>Firefox</strong> o <strong>Chrome</strong>.<br></span></div>",
+		button_label: "Siguiente"
+	};
+	timeline.push(fullscreen_on);
+
+	var instr = {
+		type: "html-keyboard-response",
+		stimulus: 
+		"<div style='width:75%;margin:auto'><span style='font-size=16px;text-align:justify'><p>Se te mostrarán rostros de 45 personas distintas haciendo varias expresiones emocionales.</p><br><p>Deberás seleccionar si el rostro expresa <strong>Alegría, Enojo, Miedo, Neutralidad, Tristeza, Asco, Sorpresa</strong> o <strong>Calma</strong>, o seleccionar <strong>'Ninguna Opción'</strong> si las otras respuestas no parecen apropiadas. También deberás de responder si el rostro de la persona parece el de alguien de la comunidad en la que vives. Esto te tomará alrededor de 15 minutos.</p><br><p>Para responder, haz click con tu mouse sobre los recuadros que contengan la respuesta que quieres dar.</p><br><p style='text-align:center'>Pulsa <strong>'espacio'</strong> para iniciar</p></style></div>",
+		choices: ["space"],
+	};
+	timeline.push(instr);
+
+
+	shuffleArray(actors);	
+	for (a=0;a<actors_total;a++) {
+		
+		var curr = a+1;
+		var counter = {
+			type: "html-keyboard-response",
+			stimulus: "<span style='font-size:36px'>Progreso: <strong>" + curr + "/" + actors_total + "</strong></span>",
+			trial_duration: 500,
+		};
+		timeline.push(counter);
+		
+		shuffleArray(expressions); 
+		for (e=0;e<expressions.length;e++) {
+	
+			var trial = {
+				type: "image-button-response-emoclass",
+				stimulus: "../img/"+actors[a]+"_"+expressions[e]+".jpg",
+				stimulus_height: 400,
+				maintain_aspect_ratio: true,
+				prompt: "<br>¿Qué emoción muestra este rostro?",
+				button_html: '<button class="jspsych-btn" style="display:block;font-size:3vh;max-font-size: 200%;min-height:100%;min-width:100%" disabled>%choice%</button>',
+				choices: ["Alegría", "Enojo", "Miedo", "Neutral", "Tristeza", "Asco", "Sorpresa", "Calma", "<span style='font-size:100%'>Ninguna<br />opción</span>"],		
+				margin_vertical: '3px',
+				};
+			timeline.push(trial);
+
+		}
+
+		var collage = {
+			type: "image-button-response-emoclass-collage",
+			stimulus: "../img/"+actors[a]+".jpg",
+			stimulus_height: 500,
+			maintain_aspect_ratio: true,
+			choices: ["Sí","No"],
+			// button_html: '<button class="jspsych-btn" style="font-size:30px;height:100px;width:200px" disabled>%choice%</button>',
+			button_html: '<button class="jspsych-btn" style="font-size:3vh;max-font-size: 200%;min-height:100%;min-width:100%" disabled>%choice%</button>',
+
+			prompt: "<br>¿Podría ser este rostro de un miembro de tu comunidad?"
+			};
+		timeline.push(collage);
+	}
+
+
+	var end_form = {
+		type: "survey-html-form",
+		html: end_form_html, //end_form_html declared in end_form.js 
+		button_label: "Continuar",
+	};
+	timeline.push(end_form);
+
+	var fullscreen_off = {
+		type: "fullscreen",
+		fullscreen_mode: false,
+		};
+	timeline.push(fullscreen_off);
+
+	var goodbye = {
+		type: "html-keyboard-response",
+		stimulus: "<div style='width:100%;margin:auto'><span style='font-size=40px;text-align:center'><strong>¡Muchas gracias por participar!</strong></span></div>",
+		response_ends_trial: false,
+		trial_duration: 500
+		};
+	timeline.push(goodbye);
+				
+
+
+	var today = new Date();
+	var date = today.toISOString().substring(0,13)+today.toISOString().substring(14,16); //returns string "YYYY-MM-DDTHHMM"
+	
+	var filename = date + "_data.csv";
+
+	function filtered_data() {
+		return jsPsych.data.get().filter(data_filter).ignore('internal_node_id');
+		};
+
+								  
+
+	function saveData(name, data){
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST','write_data.php');
+		xhr.setRequestHeader('Content-Type','application/json');
+		xhr.send(JSON.stringify({filename: name, filedata: data}));
+		};
+	
+	jsPsych.init({
+		timeline: timeline,
+		
+		on_finish: function() {/*jsPsych.data.displayData();*/ filtered_data().localSave("csv",filename);saveData(filename, filtered_data().csv());}
+//		on_finish: function() {saveData(filename, filtered_data().csv()); }
+		});
+
+
+
+
+
+
+</script>
+
+
+
+</html>

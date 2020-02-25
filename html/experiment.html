@@ -46,7 +46,7 @@
 	    }
 	};	
 
-
+/*
 	var fullscreen_on = {
 		type: "fullscreen",
 		fullscreen_mode: true,
@@ -54,6 +54,7 @@
 		button_label: "Siguiente"
 	};
 	timeline.push(fullscreen_on);
+*/
 
 	var instr = {
 		type: "html-keyboard-response",
@@ -85,7 +86,7 @@
 				maintain_aspect_ratio: true,
 				prompt: "<br>¿Qué emoción muestra este rostro?",
 				button_html: '<button class="jspsych-btn" style="display:block;font-size:3vh;max-font-size: 200%;min-height:100%;min-width:100%" disabled>%choice%</button>',
-				choices: ["Alegría", "Enojo", "Miedo", "Neutral", "Tristeza", "Asco", "Sorpresa", "Calma", "<span style='font-size:100%'>Ninguna<br />opción</span>"],		
+				choices: ["Alegría", "Enojo", "Miedo", "Neutral", "Tristeza", "Asco", "Sorpresa", "<span style='font-size:100%'>Ninguna<br />opción</span>"],		
 				margin_vertical: '3px',
 				};
 			timeline.push(trial);
@@ -114,11 +115,13 @@
 	};
 	timeline.push(end_form);
 
+/*
 	var fullscreen_off = {
 		type: "fullscreen",
 		fullscreen_mode: false,
 		};
 	timeline.push(fullscreen_off);
+*/
 
 	var goodbye = {
 		type: "html-keyboard-response",

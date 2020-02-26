@@ -32,6 +32,15 @@
 	//lista de emociones
 	var expressions = ["NC","SC","SUR","AO","CC","DO","FO","HO"];
 
+	var actor_expression = [];
+
+	for (a=0;a<actors_total;a++) {
+		for (e=0;e<expressions.length;e++) {
+			actor_expression.push(actors[a]+"_"+expressions[e]);
+		}
+	};
+
+
 	var data_filter = [{trial_type:"image-button-response-emoclass"},{trial_type:"image-button-response-emoclass-collage"},{trial_type:"survey-html-form"}];
 
 
@@ -65,34 +74,45 @@
 	timeline.push(instr);
 
 
-	shuffleArray(actors);	
-	for (a=0;a<actors_total;a++) {
-		
-		var curr = a+1;
+	// shuffleArray(actors);	
+	// shuffleArray(expressions);
+
+	shuffleArray(actor_expression);
+
+//	for (a=0;a<actors_total;a++) {
+//		for (e=0;e<expressions.length;e++) {
+
+	for (stim=0;stim<actor_expression.length;stim++) {
+
+	//	var curr = a+1;
+
+		/*
 		var counter = {
 			type: "html-keyboard-response",
-			stimulus: "<span style='font-size:36px'>Progreso: <strong>" + curr + "/" + actors_total + "</strong></span>",
+			//stimulus: "<span style='font-size:36px'>Progreso: <strong>" + curr + "/" + actors_total + "</strong></span>",
+			stimulus: "<span style='font-size:36px'>Siguiente</strong></span>"
 			trial_duration: 500,
 		};
 		timeline.push(counter);
+		*/
 		
-		shuffleArray(expressions); 
-		for (e=0;e<expressions.length;e++) {
 	
-			var trial = {
-				type: "image-button-response-emoclass",
-				stimulus: "../img/"+actors[a]+"_"+expressions[e]+".jpg",
-				stimulus_height: 400,
-				maintain_aspect_ratio: true,
-				prompt: "<br>¿Qué emoción muestra este rostro?",
-				button_html: '<button class="jspsych-btn" style="display:block;font-size:3vh;max-font-size: 200%;min-height:100%;min-width:100%" disabled>%choice%</button>',
-				choices: ["Alegría", "Enojo", "Miedo", "Neutral", "Tristeza", "Asco", "Sorpresa", "<span style='font-size:100%'>Ninguna<br />opción</span>"],		
-				margin_vertical: '3px',
-				};
-			timeline.push(trial);
+		var trial = {
+			type: "image-button-response-emoclass",
+			//stimulus: "../img/"+actors[a]+"_"+expressions[e]+".jpg",	
+			stimulus: "../img/"+actor_expression[stim]+".jpg",
+			stimulus_height: 400,
+			maintain_aspect_ratio: true,
+			prompt: "<br>¿Qué emoción muestra este rostro?",
+			button_html: '<button class="jspsych-btn" style="display:block;font-size:3vh;max-font-size: 200%;min-height:100%;min-width:100%" disabled>%choice%</button>',
+			choices: ["Alegría", "Enojo", "Miedo", "Neutral", "Tristeza", "Asco", "Sorpresa", "<span style='font-size:100%'>Ninguna<br />opción</span>"],		
+			margin_vertical: '3px',
+			};
+		timeline.push(trial);
 
 		}
 
+		/*
 		var collage = {
 			type: "image-button-response-emoclass-collage",
 			stimulus: "../img/"+actors[a]+".jpg",
@@ -105,7 +125,8 @@
 			prompt: "<br>¿Podría ser este rostro de un miembro de tu comunidad?"
 			};
 		timeline.push(collage);
-	}
+		*/
+	
 
 
 	var end_form = {

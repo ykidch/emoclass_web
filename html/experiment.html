@@ -66,10 +66,18 @@
 	timeline.push(fullscreen_on);
 */
 
-	var instruct1 = "<div style='width:75%;margin:auto'><span style='font-size=16px;text-align:justify'><p>Gracias por tu interés en este experimento. Para completarlo, necesitarás una <strong>buena conexión a internet</strong>.<br><br> Deberás realizar todo de corrido, de lo contrario tus respuestas no serán registradas. El tiempo estimado para completar esta tarea es de <strong>15-25 minutos</strong>. <br><br> <strong>Importante</strong>: la prueba puede que no funcione en <strong>Safari</strong> o en versiones antiguas de navegador. Si la prueba no funciona, por favor intenta descargar la última versión de <strong>Firefox</strong> o <strong>Chrome</strong>.</span></div>";
+	var instruct1 = "<div style='width:75%;margin:auto'><span style='font-size=16px;text-align:justify'><p>Bienvenido(a) y gracias por tu interés en este proyecto de investigación. Tus datos son completamente confidenciales y sólo serán utilizados con fines de investigación.<br><br> Para completarlo, necesitarás una <strong>buena conexión a internet</strong>.<br><br> Deberás realizar todo de corrido, de lo contrario tus respuestas no serán registradas. El tiempo estimado para completar esta tarea es de <strong>15-25 minutos</strong>. <br><br> <strong>Importante</strong>: la prueba puede que no funcione en <strong>Safari</strong> o en versiones antiguas de navegador. Si la prueba no funciona, por favor intenta descargar la última versión de <strong>Firefox</strong> o <strong>Chrome</strong>.</span></div>";
 
+/*
 	var instruct2 = "<div style='width:75%;margin:auto'><span style='font-size=16px;text-align:justify'><p>Se te mostrarán rostros de 45 personas distintas haciendo varias expresiones emocionales.</p><br><p>Deberás seleccionar si el rostro expresa <strong>Alegría, Tristeza, Enojo, Asco, Miedo, Sorpresa, Calma</strong> o <strong>Neutralidad</strong>, o bien, si ninguna de estas opciones parece apropiada, entonces selecciona <strong>'Ninguna Opción'</strong>. Para cada rostro puedes elegir cualquier opción que consideres la más apropiada para describir la expresión emocional.</p><br><p>Para responder, haz click con tu mouse sobre los recuadros que contengan la respuesta que quieres dar.</p><br><p style='text-align:center'>Pulsa <strong>'Siguiente'</strong> para iniciar</p></span></div>";
+*/	
+
+	var instruct2 = "<div style='width:75%;margin:auto'><span style='font-size=16px;text-align:justify'><p>En esta prueba, se te mostrarán rostros distintos. Deberás clasificar qué emoción expresa el rostro. Para responder, haz click con tu mouse sobre los recuadros que contienen la respuesta que quieres dar.</p><br><p>Tus opciones son: <strong>Alegría, Tristeza, Enojo, Asco, Miedo, Sorpresa, Neutral, Calma</strong> y <strong>Ninguna Opción</strong>.</p><br><p style='text-align:center'>Pulsa <strong>'Siguiente'</strong> para iniciar</p></span></div>";
 	
+
+
+
+
 	var welcome = {
 		type: "instructions",
 		button_label_next: "Siguiente",
@@ -138,15 +146,15 @@
 		}
 
 	
-	var welcome = {
+	var welcome2 = {
 		type: "instructions",
 		button_label_next: "Siguiente",
 		show_clickable_nav: true,
 		allow_backward: false,
 		allow_keys: false,
-		pages: ["<div style='width:75%;margin:auto'><span style='font-size=16px;text-align:justify'><p>Ahora, deberás de responder si el rostro de la persona tiene un aspecto que ves comúnmente o inusualmente, ya sea cara a cara o por medios electrónicos (televisión, películas e internet) o impresos (revistas y periódicos).</p><br><p style='text-align:center'>Pulsa <strong>'Siguiente'</strong> para iniciar</p></span></div>"],
+		pages: ["<div style='width:75%;margin:auto'><span style='font-size=16px;text-align:justify'><p>Ahora se te mostrarán rostros y deberás indicar si crees o no que puedan ser de un miembro de tu comunidad. Contesta lo más honestamente posible.</p><br><p>Tus opciones son: <strong>No</strong> y <strong>Sí</strong>.</p><br><p style='text-align:center'>Pulsa <strong>'Siguiente'</strong> para iniciar</p></span></div>"],
 	};
-	timeline.push(welcome);
+	timeline.push(welcome2);
 
 
 	for (a=0;a<actors_total;a++) {
@@ -155,11 +163,12 @@
 			stimulus: "../img/"+actors[a]+"_NC.jpg",
 			stimulus_height: 500,
 			maintain_aspect_ratio: true,
-			choices: ["Comúnmente","Inusualmente"],
+			choices: ["Sí","No"],
 			// button_html: '<button class="jspsych-btn" style="font-size:16px;height:100px;width:200px" disabled>%choice%</button>',
 			button_html: '<button class="jspsych-btn" style="font-size:3vh;max-font-size: 200%;min-height:100%;min-width:100%" disabled>%choice%</button>',
 
-			prompt: "<br>¿Qué tan seguido ves a personas con un aspecto como este?"
+			prompt: "<br>¿Crees que este rostro podría ser de un miembro de tu comunidad?"
+
 			};
 		timeline.push(collage);
 		};
